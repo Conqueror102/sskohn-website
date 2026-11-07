@@ -1,0 +1,15 @@
+@extends('layouts.app')
+
+@section('content')
+    @include('sections.hero')
+    @include('sections.manifesto')
+    @include('sections.firm')
+    @include('sections.practice')
+    @include('sections.record')
+    @include('sections.values')
+    @include('sections.vision')
+    @include('sections.people')
+    @include('sections.recognition')
+    @include('sections.insights')
+    @include('sections.contact')
+@endsection
