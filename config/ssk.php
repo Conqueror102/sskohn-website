@@ -16,6 +16,9 @@ return [
     'phones' => ['+234 (0)201 291 0589', '+234 915 119 4092'],
     'source' => 'https://sskohn.com',
 
+    // Serverless hosting: build a throwaway SQLite database in /tmp on cold start (see AppServiceProvider).
+    'ephemeral_sqlite' => (bool) env('EPHEMERAL_SQLITE', false),
+
     'social' => [
         'LinkedIn' => 'https://www.linkedin.com/company/sskohnng/',
         'Instagram' => 'https://www.instagram.com/sskohnng/',

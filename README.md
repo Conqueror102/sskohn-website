@@ -26,6 +26,25 @@ php artisan serve
 
 Then open http://localhost:8000. Use `npm run dev` instead of `npm run build` while editing styles or scripts.
 
+## Deploying to Vercel
+
+Live at **https://sskohn-website.vercel.app**. Vercel runs the app on the community [`vercel-php`](https://github.com/vercel-community/php) runtime (PHP 8.5):
+
+- `api/index.php` hands every request to Laravel.
+- `vercel.json` builds the Vite assets, serves `public/` as static files and routes everything else to PHP.
+- `.vercelignore` keeps `vendor/`, `node_modules/`, `.env` and local databases out of the upload; Vercel installs dependencies itself.
+
+Environment variables are set on the Vercel project, not in `vercel.json` (Vercel ignores that block):
+
+```powershell
+vercel link
+powershell -File scripts/vercel-env.ps1              # caches, sessions, logging and database settings
+vercel env add APP_KEY production --sensitive --force --value (php artisan key:generate --show)
+vercel deploy --prod
+```
+
+Vercel's filesystem is read-only apart from `/tmp`, so the deployment keeps a throwaway SQLite database there. Contact-form and newsletter submissions are lost whenever the function restarts. To keep them, set `DB_CONNECTION`, `DB_URL` (or `DB_HOST` and the related settings) to a hosted database and set `EPHEMERAL_SQLITE=false`.
+
 ## Where things live
 
 | What | Where |
